@@ -13,10 +13,14 @@ mongoose.connection
     console.warn('Warning - ', error);
 });
 
-// runs before each test
-beforeEach(() => {
+// clear out all users BEFORE each test...
+beforeEach((done) => {
   // reference to our collection of user in our db -> drop it/remove those records
-  mongoose.connection.collections.users.drop();
+    // drop has a callback function so can use it to call next test -> call done
+  mongoose.connection.collections.users.drop(() => {
+    // after collection is dropped -> signal to mocha that can run next test...
+    done();
+  })
 })
 
 
