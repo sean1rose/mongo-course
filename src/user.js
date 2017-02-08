@@ -1,4 +1,5 @@
-// USER MODEL - represents the entire collection of data in our db
+// USER MODEL - 
+  // represents the entire collection of data in our db
 // model is used as a prototype/blueprint of our data, used to create specific instances
 // create a new collection of data (users) in our db
 

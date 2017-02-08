@@ -13,6 +13,10 @@ mongoose.connection
     console.warn('Warning - ', error);
 });
 
-// create a new collection of data (users) in our db
+// runs before each test
+beforeEach(() => {
+  // reference to our collection of user in our db -> drop it/remove those records
+  mongoose.connection.collections.users.drop();
+})
 
 
