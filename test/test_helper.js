@@ -2,16 +2,24 @@
 
 const mongoose = require('mongoose');
 
-// tell mongoose to CONNECT our local instance of mongodb. 'users_test' is the database in our mongodb instance
-// don't need to create database beforehand; by connecting mongoose, it's created...
-mongoose.connect('mongodb://localhost/users_test');
+// use es6 promise implementation...
+// mongoose.Promise = global.Promise;
+mongoose.Promise = require('bluebird');
 
-// 'once' event handler -> watch for mongoose to omit 'open' event -> so this lets us know when the mongoose connection to mongodb is good to go...
-mongoose.connection
-  .once('open', () => console.log('mongoose connection to mongodb is litty!'))
-  .on('error', (error) => {
-    console.warn('Warning - ', error);
+// make sure mongoose connects to mongo before running any tests...
+before((done) => {
+  // tell mongoose to CONNECT our local instance of mongodb. 'users_test' is the database in our mongodb instance
+  // don't need to create database beforehand; by connecting mongoose, it's created...
+  mongoose.connect('mongodb://localhost/users_test');
+
+  // 'once' event handler -> watch for mongoose to omit 'open' event -> so this lets us know when the mongoose connection to mongodb is good to go...
+  mongoose.connection
+    .once('open', () => {done(); })
+    .on('error', (error) => {
+      console.warn('Warning - ', error);
+  });
 });
+
 
 // clear out all users BEFORE each test...
 beforeEach((done) => {

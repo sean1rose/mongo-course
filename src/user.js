@@ -4,6 +4,8 @@
 // create a new collection of data (users) in our db
 
 const mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
+// mongoose.Promise = global.Promise;
 
 const Schema = mongoose.Schema;
 // schema tells us exactly what properties a model will have and what the data will be (name property will have string data)

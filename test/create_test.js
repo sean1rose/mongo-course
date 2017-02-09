@@ -15,13 +15,13 @@ describe('Creating records', () => {
     // 1. create new instance of the user model (this doesn't save to the db)
     const sean = new User({name: 'Sean'});
     
-    // 2. save user (inserts record into database, which is an asyncronous method, which means using a PROMISE!)
-      // save returns a promise, which when resolved, user has been saved to the db.
+    // 2. save user takes time to do... (inserts record into database, which is an asyncronous method, which means using a PROMISE!)
+      // save returns a promise, which when resolved -> user has been saved to the db.
     sean.save()
       .then(() => {
         // has sean been saved to our db? use mongoose method isNew (if hasn't been saved to mongodb then isNew is true, and vice versa)
         
-        // 3. assert it was saved (sean is not new; sean has been saved to db)
+        // 3. assert it was saved / assert it's not new (if sean is not new then sean has already been saved to db)
         assert(!sean.isNew);
         // if done statement isn't reached, that means our test failed...
         done();
