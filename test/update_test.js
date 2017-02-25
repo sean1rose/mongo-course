@@ -24,7 +24,9 @@ describe('Updating records', () => {
       });
   }
 
-  // set + save model instance method
+  /***** INSTANCE BASED METHODS ******/
+
+  // 1. set + save model instance method
     // do this when want to update several properties in separate steps
   it('instance type using set and save', (done) => {
     // call SET and use property that you want to update...    
@@ -51,10 +53,40 @@ describe('Updating records', () => {
     console.log('Joe - ', joe);
   });
 
-  // UPDATE() model - instance method - to update a specific property
+  // 2. UPDATE() model - instance method - to update a specific property
     // use this bulk functionality when we want to update a couple of records and save instantly...
   it('a model instance can update', (done) => {
     // pass in object w/ new property/value we want updated
     assertName(joe.update({ name: 'Alex' }), done);
+  });
+
+  /***** CLASS BASED METHODS ******/
+  
+  // 1. update
+  it('A model class can update', (done) => {
+    // 1st update ARGUMENT: pass in object w/ given criteria, which will give us matching records { name: 'Joe' }
+    // 2nd update ARGUMENT -> updated attributes we want applied to all the found records { name: 'Alex' }
+    assertName(
+      User.update({ name: 'Joe' }, { name: 'Alex' }),
+      done
+    );
+  });
+
+  // 2. finding a particular record, as soon as we find it -> update it
+    // useful when have or looking for a unique attribute
+  it('A model class can update one record', (done) => {
+    assertName(
+      User.findOneAndUpdate({ name: 'Joe' }, { name: 'Alex' }),
+      done
+    );
+  });
+
+  // 3. find by ID, and want to update an attribute
+    // use this when have an id for particular user
+  it('A model class can find a record w/ an id and update', (done) => {
+    assertName(
+      User.findByIdAndUpdate(joe._id, { name: 'Alex' }),
+      done
+    );
   });
 });
