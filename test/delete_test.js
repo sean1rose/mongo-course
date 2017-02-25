@@ -49,12 +49,29 @@ describe('Deleting a user', () => {
 
   });
 
-  
-  it('class method findAndRemove', () => {
-
+  // for finding a particular record (can use id or any other criteria - 1st record that matches is removed)...
+  it('class method findOneAndRemove', (done) => {
+    User.findOneAndRemove({ name: 'Joe' })
+      .then(() => {
+        User.findOne({ name: 'Joe' })
+          .then((user) => {
+            assert(user === null);
+            done();
+          });
+      });
   });
 
-  it ('class method findByIdAndRemove', () => {
-
+  // same as findOneAndRemove, but using id (could use findOneAndRemove w/ id)
+  it ('class method findByIdAndRemove', (done) => {
+      // do NOT have to pass in an object here, can just pass in id
+    // User.findByIdAndRemove({ _id: joe.id })
+    User.findByIdAndRemove(joe._id)
+      .then(() => {
+        User.findOne({ _id: joe._id })
+          .then((user) => {
+            assert(user === null);
+            done();
+          })
+      })
   });
 });
