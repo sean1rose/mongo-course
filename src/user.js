@@ -11,6 +11,7 @@ const Schema = mongoose.Schema;
 // schema tells us exactly what properties a model will have and what the data will be (name property will have string data)
 const UserSchema = new Schema({
   name: String,
+  postCount: Number
 });
 
 // use mongoose to create a new user model...

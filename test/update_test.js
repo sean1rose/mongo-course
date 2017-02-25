@@ -5,7 +5,7 @@ describe('Updating records', () => {
   let joe;
   // declare user ahead of time w/ beforeEach
   beforeEach((done) => {
-    joe = new User({ name: 'Joe' });
+    joe = new User({ name: 'Joe', postCount: 0 });
     joe.save()
       .then(() => done());
   });
@@ -88,5 +88,28 @@ describe('Updating records', () => {
       User.findByIdAndUpdate(joe._id, { name: 'Alex' }),
       done
     );
+  });
+
+
+
+
+  /***** UPDATE OPERATORS ********/
+
+  // increment postCount by 1
+    // every user of model class has their post count updated by 1
+  it('A user can have their postCount incremented by 1', (done) => {
+    // User.update({ name: 'Joe' }, { postCount: 1 });
+      // WON'T WORK ^^^ this SETS all these users' postCount to 1 (NOT incrementing by 1)
+    
+    // 1st arg: find every user w/ name of Joe, 
+    // 2nd arg: then use update-increment-operator (find postCount property, increment by 1)
+        // specify type of operator ($inc), point $inc at an object w/ the property we want to update as the key, and the value is amount we want to increment by... 
+    User.update({ name: 'Joe' }, { $inc: { postCount: 1 }})
+      .then(() => User.findOne({ name: 'Joe' }))
+      .then((user) => {
+        assert(user.postCount === 1);
+        done();
+      })
+
   });
 });
