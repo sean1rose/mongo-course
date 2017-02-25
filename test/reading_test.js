@@ -42,7 +42,7 @@ describe('Reading users out of the db', () => {
     // need to pass in object to serve as criteria of your findOne search...
     User.findOne({ _id: sean._id})
       .then((user) => {
-        console.log('user - ', user);
+        // console.log('user - ', user);
         assert(user.name === 'Sean');
         done();
       });

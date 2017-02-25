@@ -50,7 +50,7 @@ describe('Updating records', () => {
 
       });
       */
-    console.log('Joe - ', joe);
+    // console.log('Joe - ', joe);
   });
 
   // 2. UPDATE() model - instance method - to update a specific property
